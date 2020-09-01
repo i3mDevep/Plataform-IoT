@@ -1,0 +1,26 @@
+{
+  "name": "iot_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server.js",
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "start-dev": "SET DEBUG=iot* && nodemon server.js"
+  },
+  "author": "Michael Steven Atehortua",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "iot-utils": "file:../iot-utils",
+    "iot_db": "file:../iot_db"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.0",
+    "debug": "^4.1.1",
+    "nodemon": "^2.0.4",
+    "standard": "^14.3.4"
+  }
+}

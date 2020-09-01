@@ -1,0 +1,22 @@
+{
+  "name": "iot-mqtt",
+  "version": "1.0.0",
+  "description": "A Simple Plataform Mqtt server-mqtt",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "start": "NODE_ENV=production node index.js",
+    "start-dev": "SET DEBUG=iot* && nodemon index.js"
+  },
+  "author": "Michael Steven Atehortua Henao",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "debug": "^4.1.1",
+    "iot-utils": "file:../iot-utils",
+    "iot_db": "file:../iot_db",
+    "mosca": "^2.8.3",
+    "redis": "^3.0.2"
+  }
+}

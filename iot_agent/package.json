@@ -1,0 +1,21 @@
+{
+  "name": "iot_agent",
+  "version": "1.0.0",
+  "description": "A Simple IoT Plataform -Agent",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Steven Atehortua",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "defaults": "^1.0.3",
+    "iot-utils": "file:../iot-utils",
+    "mqtt": "^4.2.1",
+    "standard": "^14.3.4",
+    "uuid": "^8.3.0"
+  }
+}

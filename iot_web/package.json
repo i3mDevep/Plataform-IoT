@@ -1,0 +1,34 @@
+{
+  "name": "iot_web",
+  "version": "1.0.0",
+  "description": "A Simple Plataform IoT - WEB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server.js",
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "start-dev": "SET DEBUG=iot* && nodemon server.js"
+  },
+  "author": "Michael Steven Atehortua Heano",
+  "license": "ISC",
+  "devDependencies": {
+    "debug": "^4.1.1",
+    "nodemon": "^2.0.4",
+    "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "chalk": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "iot-utils": "file:../iot-utils",
+    "iot_agent": "file:../iot_agent",
+    "socket.io": "^2.3.0"
+  },
+  "standard": {
+    "ignore": [
+      "/client/**"
+    ]
+  }
+}
