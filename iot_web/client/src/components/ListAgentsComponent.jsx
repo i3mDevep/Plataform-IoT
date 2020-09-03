@@ -1,19 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import AgentCard from './AgentCard'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     margin: '0 20%',
     '@media (max-width: 848px)': {
-        margin: 0
-    },
+      margin: 0
+    }
   }
 }))
 
-const ListAgentComponent = () => {
+const ListAgentComponent = ({ messages, agents }) => {
   const classes = useStyles()
 
   return (
@@ -21,10 +21,10 @@ const ListAgentComponent = () => {
       <Grid container spacing={3}>
 
         {
-          [1, 2, 4, 5].map(agent =>
-          <Grid item md={12} style={{ margin: 'auto' }}>
-            <AgentCard avatarColor={'#' + Math.floor(Math.random() * 16777215).toString(16)} {...agent} />
-          </Grid>
+          agents.map(agent =>
+            <Grid key={agent.id} item md={12} style={{ margin: 'auto' }}>
+              <AgentCard realTimeMessages={messages} avatarColor={'#' + Math.floor(Math.random() * 16777215).toString(16)} {...agent} />
+            </Grid>
           )
 
         }

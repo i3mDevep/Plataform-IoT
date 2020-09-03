@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
@@ -15,7 +15,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import HeartBreak from '../assets/images/icons8-broken-heart-24.png'
 import HeartLive from '../assets/images/icons8-heart-outline-24.png'
 
-import Example from './charts/Example'
+import axios from 'axios'
+
+import LineChart from './charts/LineChart'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,19 +40,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function AgentCard ({ avatarColor, children, name, username, hostname, pid, conneted = false, updatedAt, uuid }) {
+export default function AgentCard ({ realTimeMessages, avatarColor, name, username, hostname, pid, connected = false, updatedAt, uuid }) {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
+  const [metrics, setMetrics] = React.useState([])
+  const [realTimeMetrics, setRealTimeMetrics] = useState([])
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
+  const handleExpandClick = async () => {
+    connected && setExpanded(!expanded)
+    if (connected) {
+      const res = await axios.get(`http://localhost:8080/api/metrics/${uuid}`)
+      if (!res.data.error.status) {
+        setMetrics(res.data.body)
+      }
+    }
   }
 
+  useEffect(() => {
+    if(realTimeMessages.agent){
+      if(realTimeMessages.agent.uuid === uuid){
+        console.log('me corresponde a mi', realTimeMessages.agent.uuid)
+        setRealTimeMetrics(realTimeMessages.metrics)
+      }
+    }
+
+  },[realTimeMessages])
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label='recipe' style={{backgroundColor: avatarColor}}>
+          <Avatar aria-label='recipe' style={{ backgroundColor: avatarColor }}>
             A
           </Avatar>
         }
@@ -75,7 +94,7 @@ export default function AgentCard ({ avatarColor, children, name, username, host
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label='heart'>
-          <img src={conneted ? HeartLive : HeartBreak} />
+          <img src={connected ? HeartLive : HeartBreak} />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -90,7 +109,9 @@ export default function AgentCard ({ avatarColor, children, name, username, host
       </CardActions>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
-          <Example />
+          {
+            metrics.map((metric, index) => <LineChart realTimeMetrics={realTimeMetrics} uuid={uuid} chartTitle={metric.type} backgroundColor={avatarColor} key={index} />)
+          }
         </CardContent>
       </Collapse>
     </Card>
